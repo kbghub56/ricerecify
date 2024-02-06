@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Times</title>
+</head>
+<body>
+    <h1 style="text-align:center;">Rice Recreation Center Popular Times</h1>
+    <button id="getPopularTimesBtn">Get Popular Times</button>
+    <img id="popularTimesImg" alt="Popular Times Chart">
+
+    <script>
+        document.getElementById('getPopularTimesBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/get_popular_times');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                const imgSrc = URL.createObjectURL(blob);
+
+                // Display the image
+                document.getElementById('popularTimesImg').src = imgSrc;
+            } catch (error) {
+                console.error('Error fetching popular times:', error);
+            }
+        });
+    </script>
+</body>
+</html>
